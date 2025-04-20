@@ -1,0 +1,59 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: SkillSwap_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://root:admin@localhost:5432/SkillSwap_test
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Generate Prisma Client
+        working-directory: backend
+        run: npx prisma generate --schema=prisma/schema.prisma
+
+      - name: Apply migrations to test DB
+        working-directory: backend
+        run: npx prisma migrate deploy --schema=prisma/schema.prisma
+
+      - name: Run tests
+        working-directory: backend
+        run: npm test
+
+      - name: Build project
+        working-directory: backend
+        run: npm run build
