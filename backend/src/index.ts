@@ -1,8 +1,8 @@
-import { config } from "process";
+import CONFIG  from "./config/config";
 import server from "./server";
-// 
 
-server.listen(3000, () => {
-    console.log(`Server listening from port ${3000}`)
+
+server.listen(CONFIG.PORT, () => {
+    console.log(`Server listening from port ${CONFIG.PORT}`)
 })
 
