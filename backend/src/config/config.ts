@@ -1,4 +1,5 @@
 import {envSchema, type EnvSchemaType} from "../models/config.env.model";
+import { logger } from '../util/loggerUtils';
 
   if (process.env.PLATFORM !== 'docker') {
     require('dotenv').config();
@@ -7,9 +8,9 @@ import {envSchema, type EnvSchemaType} from "../models/config.env.model";
   const parsed = envSchema.safeParse(process.env);
 
   if (!parsed.success) {
-    console.error("Error with .env file:");
+    logger.error("Error with .env file:");
     parsed.error.issues.forEach((issue) => {
-      console.error(`→ ${issue.path.join('.')}: ${issue.message}`);
+      logger.error(`→ ${issue.path.join('.')}: ${issue.message}`);
     });
     process.exit(1);
   }

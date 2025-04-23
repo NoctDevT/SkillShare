@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { requiresAuth, type RequestContext, type ResponseContext } from 'express-openid-connect';
+import { logger, logHttpRequest } from '../util/loggerUtils';
 
 interface ReqOIDC extends Request { oidc: RequestContext }
 interface ResOIDC extends Response { oidc: ResponseContext }
@@ -12,8 +13,10 @@ function isLoggedIn(req: ReqOIDC) {
 
 authRouter.get('/', (req: ReqOIDC, res: Response) : any => {
   if (isLoggedIn(req)) {
+    logger.info(`Authenticated user accessed /auth: ${req.oidc.user?.email || 'unknown email'}`);
     return res.status(200).json({ success: true, message: 'User is logged in' });
   }
+  logHttpRequest(req)
   return res.status(401).json({ success: false, message: 'User not authenticated' });
 });
 

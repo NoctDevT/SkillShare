@@ -33,6 +33,7 @@
     "express": "^5.1.0",
     "express-openid-connect": "^2.18.0",
     "morgan": "^1.10.0",
+    "winston": "^3.17.0",
     "zod": "^3.24.3"
   }
 }

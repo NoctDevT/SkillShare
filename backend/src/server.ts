@@ -2,15 +2,21 @@ import Express from "express";
 import { auth } from "express-openid-connect";
 import config from "./config/config";
 import authRouter from "./routes/auth";
-import requestLogger from "./middlewares/logger";
+import { logger } from './util/loggerUtils';
 import morgan from 'morgan';
 
-const server = Express();
 
+const server = Express();
 server.use(Express.json());
 server.use(auth(config.auth0));
 //apache style logging
-server.use(morgan("combined"));
+server.use(morgan("combined"
+    , {
+    stream: {
+        write: (log) => logger.http(log.trim())
+    }
+}
+));
 server.use('/auth', authRouter);
 
 

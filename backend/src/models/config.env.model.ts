@@ -16,7 +16,6 @@ export const envSchema = z.object({
       message: 'AUTH0_BASE_URL must be a valid URL',
     }),
     AUTH0_CLIENT_ID: z.string().min(1, 'AUTH0_CLIENT_ID is required'),
-    AUTH0_CLIENT_SECRET: z.string().min(1, 'AUTH0_CLIENT_SECRET is required'),
     AUTH0_ISSUER_BASE_URL: z.string().url({
       message: 'AUTH0_ISSUER_BASE_URL must be a valid URL',
     }),
