@@ -18,21 +18,20 @@ import { logger } from '../util/loggerUtils';
   const env = parsed.data;
 
   const config = {
-    PORT: env.PORT,
-    NODE_ENV: env.NODE_ENV,
-    DATABASE_URL: process.env.PLATFORM !== "docker" ?  env.DATABASE_URL : env.DATABASE_URL_DOCKER,
-    auth0: {
-      secret: env.AUTH0_SECRET,
-      baseURL: env.AUTH0_BASE_URL,
-      clientID: env.AUTH0_CLIENT_ID,
-      issuerBaseURL: env.AUTH0_ISSUER_BASE_URL,
-      authRequired:false,
-      auth0Logout:true,
-      idpLogout: true,
-    },
-    loginRedir: "http://localhost:3000/callback",
-    LogoutRedir: "http://localhost:3000"
+      PORT: env.PORT,
+      NODE_ENV: env.NODE_ENV,
+      DATABASE_URL: process.env.PLATFORM !== "docker" ?  env.DATABASE_URL : env.DATABASE_URL_DOCKER,
+      auth0: {
+        secret: env.AUTH0_SECRET,
+        baseURL: env.AUTH0_BASE_URL,
+        clientID: env.AUTH0_CLIENT_ID,
+        issuerBaseURL: env.AUTH0_ISSUER_BASE_URL,
+        authRequired:false,
+        auth0Logout:true,
+        idpLogout: true,
+      },
+      loginRedir: "http://localhost:3000/callback",
+      LogoutRedir: "http://localhost:3000"
   };
-
 
   export default config;
