@@ -20,19 +20,26 @@ enum UserType {
   BOTH
 }
 
+enum AccountStatus {
+  VERIFIED
+  PENDING
+  NEW
+}
+
 model User {
   id              String    @id @default(uuid())
-  name            String
+  name            String?
   email           String    @unique
-  type            UserType
+  type            UserType?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  skills          Skill[]   @relation("UserSkills")
+  skills          Skill[]     @relation("UserSkills")
   studentSessions Session[] @relation("StudentSessions")
   teacherSessions Session[] @relation("TeacherSessions")
   // Oauth providers
   provider        String?
   providerId      String?
+  accountStatus   AccountStatus
 }
 
 model Skill {

@@ -51,7 +51,7 @@ export const loginSuccessController = async (req: Request, res: Response): Promi
           providerId,
         });
       }
-
+      
       logger.info('User successfully logged in ', { email });
 
       return res.status(200).json({
@@ -75,7 +75,7 @@ export const loginSuccessController = async (req: Request, res: Response): Promi
   }
 };
 
-export const logoutController = async (req: Request, res: Response) : Promise<any> => {
+export const logoutController = async (req: Request, res: Response) : Promise<void> => {
     try{
         await res.oidc.logout()
         res.status(200).json({ success: true, message: 'You have been logged out' });  

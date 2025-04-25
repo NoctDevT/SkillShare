@@ -20,7 +20,7 @@ import { logger } from '../util/loggerUtils';
   const config = {
       PORT: env.PORT,
       NODE_ENV: env.NODE_ENV,
-      DATABASE_URL: process.env.PLATFORM !== "docker" ?  env.DATABASE_URL : env.DATABASE_URL_DOCKER,
+      DATABASE_URL:  env.DATABASE_URL ,
       auth0: {
         secret: env.AUTH0_SECRET,
         baseURL: env.AUTH0_BASE_URL,
