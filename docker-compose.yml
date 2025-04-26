@@ -25,7 +25,7 @@ services:
     environment:
       - NODE_ENV=development
       - PLATFORM=docker
-    command: ["npm", "run", "dev"]
+      - DATABASE_URL=${DATABASE_URL_DOCKER}
     ports: 
       - "3000:3000"
     depends_on:
