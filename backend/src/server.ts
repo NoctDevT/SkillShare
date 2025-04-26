@@ -4,6 +4,7 @@ import config from "./config/config";
 import authRouter from "./routes/auth";
 import { logger } from './util/loggerUtils';
 import morgan from 'morgan';
+import userRouter from "./routes/user";
 
 
 const server = Express();
@@ -19,6 +20,7 @@ server.use(morgan("combined"
 ));
 server.use('/auth', authRouter);
 
+server.use('/user', userRouter);
 
 
 export default server; 

@@ -12,7 +12,8 @@
       "paths": {
         "@src/*": ["src/*"],
         "@tests/*": ["tests/*"],
-        "@types/*": ["types/*"]
+        "@types/*": ["types/*"],
+        "@prismaGenerated/*": ["src/prismaGenerated/*"]
       }
     }
   }

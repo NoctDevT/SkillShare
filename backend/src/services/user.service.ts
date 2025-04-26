@@ -1,6 +1,6 @@
 import { UserSchema } from "@src/models/user/UserSchema";
 import { updateUser, getUserByEmail } from "@src/util/db";
-import { User } from "prisma/app/generated/prisma/client";
+import { User } from "../prismaGenerated";
 import { logger } from "@src/util/loggerUtils";
 
 

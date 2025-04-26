@@ -1,4 +1,4 @@
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '../../../prismaGenerated';
 import prisma from '../index';
 
 export const updateUser = async (UserObj: User) => {
