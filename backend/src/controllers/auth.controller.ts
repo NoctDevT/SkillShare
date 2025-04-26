@@ -19,10 +19,12 @@ export const home = async(req: Request, res: Response): Promise<any> => {
     return res.status(401).json({ success: false, message: 'User not authenticated' });
 } 
 
+
 export const loginController = async(req: Request, res:Response): Promise<any> => {
     try {
         res.oidc.login({ returnTo: '/auth/loginSuccess' });
     } catch (e) {
+        res.status(500).json({success: false, message: "Error with oAuth2 service"})
         logHttpRequest(req, "An error has occurred whilst logging into OAUTH provider")
     }
 }

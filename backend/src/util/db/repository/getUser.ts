@@ -5,3 +5,4 @@ export const getUser = async (email: string) => {
     where: { email }
   });
 };
+
