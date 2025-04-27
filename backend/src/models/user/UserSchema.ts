@@ -53,5 +53,5 @@ export const OnboardingSchema = z.object({
 });
 
 export type UserInputType = z.infer<typeof UserCreateSchema>;
-export type UserOnboardingSchema = z.infer<typeof OnboardingSchema>;
+export type UserOnboardingType = z.infer<typeof OnboardingSchema>;
 

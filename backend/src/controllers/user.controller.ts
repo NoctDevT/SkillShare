@@ -1,12 +1,25 @@
 import { Request, Response } from 'express';
 import { logger } from '../util/loggerUtils';
 import { z } from 'zod';
-import { handleUserOnboarding, getUserFromDb} from '@src/services/user.service';
+import { UserService } from '@src/services/user.service';
 import Auth0User from '@src/models/auth.user';
 
 export const onboarding = async (req: Request, res: Response): Promise<void> => {
+
+  //Using auth email to prevent forgeary attack 
+  // Will later on extract provider and provider id from oidc user
+  const authEmail = req.oidc?.user?.email;
+   
     try {
-      const user = await handleUserOnboarding(req.body);
+
+      if (!authEmail) {
+        res.status(401).json({ success: false, message: "Unauthorised: No authenticated email found" });
+      }
+
+      const user = await UserService.handleOnboarding(req.body, authEmail);
+
+      if(!user) res.status(400).json({success: false, message: "User not found"})
+
       logger.info("User onboarded successfully:", user);
       res.status(200).json({ success: true, user });
     } catch (error) {
@@ -28,7 +41,7 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
             logger.error("Route accessed by AUTH0 user with no email provided");
             throw new Error("Application error with authentication")
         }
-        let user = await getUserFromDb(email);
+        let user = await UserService.getUser(email);
 
         res.status(200).send(user);
         
