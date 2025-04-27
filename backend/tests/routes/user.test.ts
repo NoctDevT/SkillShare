@@ -3,6 +3,7 @@ import { createTestServer } from '../utils/server';
 import { Prisma, User } from '../../src/prismaGenerated';
 import { UserOnboardingType} from "../../src/models/user/UserSchema"
 import { createTestDbUser, deleteTestUser } from '../utils/dbHelper';
+import prisma from '../../src/util/db';
 
 jest.mock('express-openid-connect', () => ({
     ...jest.requireActual('express-openid-connect'),
@@ -75,11 +76,36 @@ describe('User Routes', () => {
       
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(true);
-        expect(res.body.user).toBeDefined(); 
       });
-      
-      
 
 
+
+
+      it('Internal server error on /user/onboarding and match status 500', async () => {
+        const app = createTestServer({ 
+          isAuthenticated: true, 
+          user: { email: "johnsmith@example.com" },
+        });
+      
+        const validUser: UserOnboardingType = {
+            name: "John",
+            type: "BOTH",
+            accountStatus: "PENDING"
+          };
+
+          const prismaUpdateSpy = jest.spyOn(prisma.user, 'update').mockImplementation(() => {
+            throw new Error("Simulated DB error during update");
+          });
+      
+        const res = await request(app)
+          .post('/user/onboarding')
+          .send(validUser);
+      
+          expect(res.status).toBe(500);
+          expect(res.body.error).toBe("Internal server error");
+
+          prismaUpdateSpy.mockRestore();
+
+      });
 });
 

@@ -1,8 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import authRouter from '../../src/routes/auth';
 import userRouter from "../../src/routes/user"
-import { Prisma, User } from '../../src/prismaGenerated';
-import prisma from '../../src/util/db';
+
 
 interface MockOidc {
   isAuthenticated?: boolean;
