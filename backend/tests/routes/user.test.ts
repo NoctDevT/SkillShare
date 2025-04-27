@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { createTestServer } from '../utils/server';
 import { Prisma, User } from '../../src/prismaGenerated';
-import { UserType } from '@prisma/client';
 import { UserOnboardingType} from "../../src/models/user/UserSchema"
 import { createTestDbUser, deleteTestUser } from '../utils/dbHelper';
 
