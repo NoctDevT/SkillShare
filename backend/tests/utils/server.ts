@@ -1,6 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import authRouter from '../../src/routes/auth';
 import userRouter from "../../src/routes/user"
+import { Prisma, User } from '../../src/prismaGenerated';
+import prisma from '../../src/util/db';
 
 interface MockOidc {
   isAuthenticated?: boolean;
@@ -10,6 +12,7 @@ interface MockOidc {
 
 export function createTestServer(mockOidc: MockOidc = {InternalError: false}) {
   const app = express();
+  app.use(express.json());
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     const oidcMock = {
@@ -32,3 +35,5 @@ export function createTestServer(mockOidc: MockOidc = {InternalError: false}) {
 
   return app;
 }
+
+

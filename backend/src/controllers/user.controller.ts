@@ -8,15 +8,15 @@ export const onboarding = async (req: Request, res: Response): Promise<void> => 
 
   //Using auth email to prevent forgeary attack 
   // Will later on extract provider and provider id from oidc user
-  const authEmail = req.oidc?.user?.email;
+  const { email } = req.oidc.user as Auth0User;
    
     try {
-
-      if (!authEmail) {
+      if (!email) {
         res.status(401).json({ success: false, message: "Unauthorised: No authenticated email found" });
+        throw new Error ("Email not specified")
       }
 
-      const user = await UserService.handleOnboarding(req.body, authEmail);
+      const user = await UserService.handleOnboarding(req.body, email);
 
       if(!user) res.status(400).json({success: false, message: "User not found"})
 
@@ -24,7 +24,7 @@ export const onboarding = async (req: Request, res: Response): Promise<void> => 
       res.status(200).json({ success: true, user });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        logger.error("Validation error occurred during onboarding:", error.flatten());
+        logger.error("Validation error occurred during onboarding:", req.body);
         res.status(400).json({ error: "Validation failed", details: error.flatten() });
       } else {
         logger.error(" Error has occurred during onboarding: ", error);
