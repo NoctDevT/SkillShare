@@ -13,7 +13,6 @@
         "@src/*": ["src/*"],
         "@tests/*": ["tests/*"],
         "@types/*": ["types/*"],
-        "@prismaGenerated/*": ["src/prismaGenerated/*"]
       }
     }
   }
