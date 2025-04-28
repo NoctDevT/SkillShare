@@ -73,3 +73,14 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-backend:$COMMIT_SHA
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-backend:$COMMIT_SHA ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-backend:latest
+
+      - name: Build and push Migrations Docker image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: migrations
+        run: |
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-migrations:$COMMIT_SHA .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-migrations:$COMMIT_SHA
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-migrations:$COMMIT_SHA ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-migrations:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/skillswap-migrations:latest
+       
