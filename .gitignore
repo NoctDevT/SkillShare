@@ -8,3 +8,6 @@ backend/prisma/app/generated/prisma/client/*
 backend/logs/*
 backend/dist/*
 backend/src/prismaGenerated/
+k8s/postgres-secret.yml
+k8s/backend-secret.yml
+k8s/migration-secret.yml

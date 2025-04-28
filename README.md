@@ -27,3 +27,12 @@ This application uses Prsima for migrations, keep the database running in docker
 
 /user/onboarding
 /user/getProfile
+
+
+# For local K8s development 
+
+1) Download minikube and kubernetes  
+2) Add environment variables into k8s/ 
+3) run start-cluster.sh script 
+
+Backend hosted on Localhost:3000

@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prisma-migrate
+spec:
+  template:
+    spec:
+      restartPolicy: Never 
+      containers:
+      - name: prisma-migrate
+        image: voidxv/skillswap-migrations:latest
+        envFrom:
+        - secretRef:
+            name: migration-secret
+  backoffLimit: 1
