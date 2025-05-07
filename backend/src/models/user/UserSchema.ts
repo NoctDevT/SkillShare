@@ -20,9 +20,8 @@ export const SessionSchema = z.object({
 export const SkillsArraySchema = z.array(SkillSchema);
 export const SessionsArraySchema = z.array(SessionSchema);
 
-
 export const UserSchema = z.object({
-  // id: z.string(),
+  // id: z.string(), 
   name: z.string(),
   email: z.string().email(),
   type: UserTypeEnum,
@@ -33,25 +32,25 @@ export const UserSchema = z.object({
   accountStatus: AccountStatusEnum
 });
 
-export const UserCreateSchema = z.object({
-  name: z.string().optional(),
-  email: z.string().email(),
+export const UserCreateSchema = UserSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+  provider: true,
+  providerId: true
+}).extend({
+  name: z.string().optional(), 
   provider: z.string().optional(),
   providerId: z.string().optional(),
-  accountStatus: AccountStatusEnum,
-  type: UserTypeEnum,
   skills: SkillsArraySchema.optional(),
   studentSessions: SessionsArraySchema.optional(),
-  teacherSessions: SessionsArraySchema.optional(),
-})
+  teacherSessions: SessionsArraySchema.optional()
+});
 
-
-export const OnboardingSchema = z.object({
-  name: z.string(),
-  type: UserTypeEnum,
-  accountStatus: AccountStatusEnum
+export const OnboardingSchema = UserSchema.pick({
+  name: true,
+  type: true,
+  accountStatus: true
 });
 
 export type UserInputType = z.infer<typeof UserCreateSchema>;
 export type UserOnboardingType = z.infer<typeof OnboardingSchema>;
-
