@@ -1,8 +1,9 @@
-import { logger } from '@src/util/loggerUtils';
+import { logger } from '../../loggerUtils';
 import { Prisma, User } from '../../../prismaGenerated';
 import prisma from '../index';
 import { getUser } from './getUser';
-import { UserInputType } from '@src/models/user/UserSchema';
+import { UserInputType } from '../../../models/user/UserSchema';
+
 
 // using builder pattern approach suggested 
 // reusable and allows for partial updates instead of adding overhead on the DB

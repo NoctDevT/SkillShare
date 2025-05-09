@@ -1,6 +1,6 @@
 import { Router} from 'express';
 import { requiresAuth } from 'express-openid-connect';
-import { getUserProfile, onboarding } from '@src/controllers/user.controller';
+import { getUserProfile, onboarding } from "../controllers/user.controller";
 
 const userRouter = Router();
 

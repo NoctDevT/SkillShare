@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { logger } from '../util/loggerUtils';
 import { z } from 'zod';
 import { UserService } from '@src/services/user.service';
-import Auth0User from '@src/models/auth.user';
+import Auth0User from "../models/auth.user";
 
 export const onboarding = async (req: Request, res: Response): Promise<void> => {
 

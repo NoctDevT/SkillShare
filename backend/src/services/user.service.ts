@@ -1,7 +1,7 @@
-import { UserCreateSchema, UserOnboardingType, OnboardingSchema } from "@src/models/user/UserSchema";
-import { updateUser, getUserByEmail } from "@src/util/db";
+import { UserCreateSchema, UserOnboardingType, OnboardingSchema } from "../models/user/UserSchema"
+import { updateUser, getUserByEmail } from "../util/db";
 import { User } from "../prismaGenerated";
-import { logger } from "@src/util/loggerUtils";
+import { logger } from "../util/loggerUtils";
 
 export class UserService {
   /**

@@ -1,4 +1,5 @@
-import { accountStatus } from "@src/models/user/accountType";
+
+import { accountStatus } from "../models/user/accountType";
 import { getUserByEmail, createUser } from "../util/db";
 
 
